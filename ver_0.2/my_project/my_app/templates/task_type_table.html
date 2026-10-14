@@ -1,0 +1,25 @@
+{% extends 'navbar.html' %}
+
+{% block title %}Типы задач{% endblock %}
+
+{% block content %}
+<h1>Типы задач</h1>
+
+<form method="get">
+    Поиск: <input type="text" name="search" value="{{ search }}">
+    <button type="submit">Найти</button>
+    <a href="{% url 'task-types' %}">Сбросить</a>
+</form>
+
+<table border="1">
+    <tr><th>ID типа</th><th>Название типа</th></tr>
+    {% for t in task_types %}
+    <tr>
+        <td>{{ t.id_type }}</td>
+        <td>{{ t.type_name }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="2" align="center">Нет данных</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

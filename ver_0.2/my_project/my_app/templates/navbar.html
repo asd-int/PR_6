@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}База данных{% endblock %}</title>
+</head>
+<body>
+
+    <div>
+        <button><a href="{% url 'employees' %}">Сотрудники</a></button>
+        <button><a href="{% url 'departments' %}">Отделы</a></button>
+        <button><a href="{% url 'tasks' %}">Задачи</a></button>
+        <button><a href="{% url 'projects' %}">Проекты</a></button>
+        <button><a href="{% url 'task-types' %}">Типы задач</a></button>
+        <button><a href="{% url 'task-links' %}">Связи задач</a></button>
+        <button><a href="{% url 'project-roles' %}">Роли в проектах</a></button>
+        <button><a href="{% url 'project-participations' %}">Участие в проектах</a></button>
+        <button><a href="{% url 'time-entries' %}">Списания часов</a></button>
+    </div>
+
+    <hr>
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>
+
+
+
+
+

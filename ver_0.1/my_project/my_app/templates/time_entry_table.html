@@ -1,0 +1,41 @@
+{% extends 'navbar.html' %}
+
+{% block title %}Списания часов{% endblock %}
+
+{% block content %}
+<h1>Списания часов</h1>
+
+<form method="get">
+    Сотрудник:
+    <select name="filter_employee">
+        <option value="">-- все --</option>
+        {% for e in employees %}
+            <option value="{{ e.id_employee }}" {% if filter_employee == e.id_employee|stringformat:"s" %}selected{% endif %}>
+                {{ e.full_name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Найти</button>
+    <a href="{% url 'time-entries' %}">Сбросить</a>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID записи</th><th>Задача</th><th>Сотрудник</th>
+        <th>Дата работы</th><th>Затрачено часов</th><th>Комментарий</th>
+    </tr>
+    {% for e in entries %}
+    <tr>
+        <td>{{ e.id_entry }}</td>
+        <td>{{ e.task.title }}</td>
+        <td>{{ e.employee.full_name }}</td>
+        <td>{{ e.work_date|date:"d.m.Y" }}</td>
+        <td>{{ e.hours_spent }}</td>
+        <td>{{ e.comment }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6" align="center">Нет данных</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

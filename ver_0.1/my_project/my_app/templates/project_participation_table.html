@@ -1,0 +1,39 @@
+{% extends 'navbar.html' %}
+
+{% block title %}Участие в проектах{% endblock %}
+
+{% block content %}
+<h1>Участие в проектах</h1>
+
+<form method="get">
+    Проект:
+    <select name="filter_project">
+        <option value="">-- все --</option>
+        {% for p in projects %}
+            <option value="{{ p.id_project }}" {% if filter_project == p.id_project|stringformat:"s" %}selected{% endif %}>
+                {{ p.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Найти</button>
+    <a href="{% url 'project-participations' %}">Сбросить</a>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID участия</th><th>Проект</th><th>Сотрудник</th><th>Роль</th><th>Дата присоединения</th>
+    </tr>
+    {% for p in participations %}
+    <tr>
+        <td>{{ p.id_participation }}</td>
+        <td>{{ p.project.name }}</td>
+        <td>{{ p.employee.full_name }}</td>
+        <td>{{ p.role.role_name }}</td>
+        <td>{{ p.joined_at|date:"d.m.Y" }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5" align="center">Нет данных</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

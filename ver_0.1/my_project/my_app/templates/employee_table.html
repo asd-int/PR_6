@@ -1,0 +1,43 @@
+{% extends 'navbar.html' %}
+
+{% block title %}Сотрудники{% endblock %}
+
+{% block content %}
+<h1>Сотрудники</h1>
+
+<form method="get">
+    Поиск по ФИО: <input type="text" name="search" value="{{ search }}">
+
+    Отдел:
+    <select name="filter_department">
+        <option value="">-- все --</option>
+        {% for d in departments %}
+            <option value="{{ d.id_department }}" {% if filter_department == d.id_department|stringformat:"s" %}selected{% endif %}>
+                {{ d.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Найти</button>
+    <a href="{% url 'employees' %}">Сбросить</a>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID сотрудника</th><th>ФИО</th><th>Должность</th>
+        <th>Email</th><th>Мессенджер</th><th>Отдел</th>
+    </tr>
+    {% for e in employees %}
+    <tr>
+        <td>{{ e.id_employee }}</td>
+        <td>{{ e.full_name }}</td>
+        <td>{{ e.position }}</td>
+        <td>{{ e.email }}</td>
+        <td>{{ e.messenger_link }}</td>
+        <td>{{ e.department.name }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6" align="center">Нет данных</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'navbar.html' %}
+
+{% block title %}Отделы{% endblock %}
+
+{% block content %}
+<h1>Отделы</h1>
+
+<form method="get">
+    Поиск: <input type="text" name="search" value="{{ search }}">
+    <button type="submit">Найти</button>
+    <a href="{% url 'departments' %}">Сбросить</a>
+</form>
+
+<table border="1">
+    <tr><th>ID отдела</th><th>Название</th><th>Описание</th></tr>
+    {% for d in departments %}
+    <tr>
+        <td>{{ d.id_department }}</td>
+        <td>{{ d.name }}</td>
+        <td>{{ d.description }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3" align="center">Нет данных</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

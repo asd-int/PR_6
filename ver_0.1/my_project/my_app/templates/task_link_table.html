@@ -1,0 +1,38 @@
+{% extends 'navbar.html' %}
+
+{% block title %}Связи задач{% endblock %}
+
+{% block content %}
+<h1>Связи задач</h1>
+
+<form method="get">
+    Тип связи:
+    <select name="filter_link_type">
+        <option value="">-- все --</option>
+        {% for lt in link_types %}
+            <option value="{{ lt }}" {% if filter_link_type == lt %}selected{% endif %}>
+                {{ lt }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Найти</button>
+    <a href="{% url 'task-links' %}">Сбросить</a>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID связи</th><th>Исходная задача</th><th>Целевая задача</th><th>Тип связи</th>
+    </tr>
+    {% for l in task_links %}
+    <tr>
+        <td>{{ l.id_task_link }}</td>
+        <td>{{ l.source_task.title }}</td>
+        <td>{{ l.target_task.title }}</td>
+        <td>{{ l.link_type }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4" align="center">Нет данных</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}
